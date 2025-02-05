@@ -20,6 +20,7 @@ public class DataAnalyzer{
         return -1;
     }
 
+    // Binary search
     public static int binarySearch(int[] numbers, int target){
         int minIndex = 1;
         int maxIndex = numbers.length;
@@ -40,6 +41,7 @@ public class DataAnalyzer{
         return -1;
     }
 
+    // Reverse list
     public static int[] reverseList(int[] numbers){
         int[] newNumbers = new int[numbers.length];
         int index = 0;
