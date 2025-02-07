@@ -1,4 +1,5 @@
-
+import java.util.Scanner;
+import java.io.File;
 
 public class DataAnalyzer{
 
@@ -60,6 +61,27 @@ public class DataAnalyzer{
         int[] reversedArr = reverseList(arr);
         for (int i = 0; i < reversedArr.length; i++){
             System.out.print(reversedArr[i] + " ");
+        }
+
+        System.out.println();
+
+        try{
+            File f = new File("numbers.txt");
+            Scanner input = new Scanner(f);
+
+            int[] numbers = new int[100];
+            for (int i = 0; i < 100; i++){
+                numbers[i] = input.nextInt();
+            }
+            System.out.println(searchList(numbers,52));
+            System.out.println(binarySearch(numbers,52));
+            int[] reversedNumber = reverseList(numbers);
+            for (int i = 0; i < reversedNumber.length; i++){
+                System.out.print(reversedNumber[i] + " ");
+            }
+        }
+        catch(IOException e){
+            System.out.println("file not found");
         }
     }
 }
