@@ -1,68 +1,67 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
 public class FileOperator{
+    private String myFile;
+    private Scanner fileReader;
+
+    public FileOperator(String f){
+        setFile(f);
+    }
+
+    public void setFile(String filename){
+        myFile = filename;
+        try {
+            fileReader = new Scanner(new File(myFile));
+        } catch (FileNotFoundException error) {
+            System.out.println("File not found.");
+        }
+    }
+
     public static void main(String[] args){
-        String[] stringArray = toStringArray(100);
-        int[] intArray = toIntArray(100);
-        double[] doubleArray = toDoubleArray(100);
     }
 
-    public static String[] toStringArray(int size){
+    public String[] toStringArray(int size){
+        String[] arr = new String[100];
         try {
-            File f = new File("numbers.txt");
-            Scanner input = new Scanner(f);
-
-            String[] strings = new String[100];
             for (int i = 0; i < 100; i++){
-                strings[i] = input.nextLine();
+                arr[i] = fileReader.nextLine();
             }
-
-            return strings;
+            return arr;
         } catch (IOException e) {
             System.out.println("file not found");
+            return arr;
         }
-        
-        String[] arr = {" "};
-        return arr;
     }
 
-    public static int[] toIntArray(int size){
+    public int[] toIntArray(int size){
+        int[] arr = new int[size];
+
         try {
-            File f = new File("numbers.txt");
-            Scanner input = new Scanner(f);
-
-            int[] numbers = new int[100];
-            for (int i = 0; i < 100; i++){
-                numbers[i] = input.nextInt();
+            for (int i = 0; i < size; i++){
+                arr[i] = fileReader.nextInt();
             }
+            return arr;
 
-            return numbers;
         } catch (IOException e) {
             System.out.println("file not found");
+            return arr;
         }
-        
-        int[] arr = {1};
-        return arr;
     }
 
-    public static double[] toDoubleArray(int size){
+    public double[] toDoubleArray(int size){
+        double[] arr = new double[100];
+
         try {
-            File f = new File("numbers.txt");
-            Scanner input = new Scanner(f);
-
-            double[] doubles = new double[100];
             for (int i = 0; i < 100; i++){
-                doubles[i] = input.nextDouble();
+                arr[i] = fileReader.nextDouble();
             }
-
-            return doubles;
+            return arr;
         } catch (IOException e) {
             System.out.println("file not found");
+            return arr;
         }
-        
-        double[] arr = {1.0};
-        return arr;
     }
 }
