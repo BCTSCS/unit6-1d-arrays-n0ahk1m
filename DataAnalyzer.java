@@ -55,6 +55,14 @@ public class DataAnalyzer{
         return newNumbers;
     }
 
+    // public int[] toIntArray(int size){
+    //     int[] arr = new int[size];
+    //     for (int i = 0; i < size; i++){
+    //         arr[i] = FileReader.nextInt();
+    //     }
+    //     return arr;
+    // }
+
     public static void main(String[] args){
         int[] arr = {10,20,30,40,50};
         System.out.println(searchList(arr,50));
@@ -75,7 +83,7 @@ public class DataAnalyzer{
                 numbers[i] = input.nextInt();
             }
             System.out.println(searchList(numbers,52));
-            System.out.println(binarySearch(numbers,52));
+            System.out.println(binarySearch(numbers,0));
             int[] reversedNumber = reverseList(numbers);
             for (int i = 0; i < reversedNumber.length; i++){
                 System.out.print(reversedNumber[i] + " ");
