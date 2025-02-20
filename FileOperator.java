@@ -1,6 +1,5 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Scanner;
 
 public class FileOperator{
@@ -20,17 +19,14 @@ public class FileOperator{
         }
     }
 
-    public static void main(String[] args){
-    }
-
     public String[] toStringArray(int size){
-        String[] arr = new String[100];
+        String[] arr = new String[size];
         try {
-            for (int i = 0; i < 100; i++){
+            for (int i = 0; i < size; i++){
                 arr[i] = fileReader.nextLine();
             }
             return arr;
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("file not found");
             return arr;
         }
@@ -45,21 +41,21 @@ public class FileOperator{
             }
             return arr;
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("file not found");
             return arr;
         }
     }
 
     public double[] toDoubleArray(int size){
-        double[] arr = new double[100];
+        double[] arr = new double[size];
 
         try {
-            for (int i = 0; i < 100; i++){
+            for (int i = 0; i < size; i++){
                 arr[i] = fileReader.nextDouble();
             }
             return arr;
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("file not found");
             return arr;
         }
