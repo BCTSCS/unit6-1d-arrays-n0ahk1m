@@ -1,3 +1,7 @@
+// Most Common Income Level  
+// Least Populated Countries
+// Get Low Usage Countries 
+// Statistical Percentage of Each Income Level 
 
 public class DataAnalyzer{
 
@@ -14,6 +18,26 @@ public class DataAnalyzer{
     public static String findCountryByIncomeLevel(String incomeLevel, String[] incomeList, String[] countryList){
         for (int i = 0; i < incomeList.length; i++){
             if (incomeLevel.equals(incomeList[i])){
+                return countryList[i];
+            }
+        }
+
+        return "None";
+    }
+
+    public static String findCountryByPopulation(int populationLevel, int[] populationList, String[] countryList){
+        for (int i = 0; i < populationList.length; i++){
+            if (populationLevel == populationList[i]){
+                return countryList[i];
+            }
+        }
+
+        return "None";
+    }
+
+    public static String findCountryByUnemployment(double unemploymentLevel, double[] unemploymentList, String[] countryList){
+        for (int i = 0; i < unemploymentList.length; i++){
+            if (unemploymentLevel == unemploymentList[i]){
                 return countryList[i];
             }
         }
@@ -201,35 +225,6 @@ public class DataAnalyzer{
     }
 
     public static void main(String[] args){
-        // int[] arr = {10,20,30,40,50};
-        // System.out.println(searchList(arr,50));
-        // System.out.println(binarySearch(arr,50));
-        // int[] reversedArr = reverseList(arr);
-        // for (int i = 0; i < reversedArr.length; i++){
-        //     System.out.print(reversedArr[i] + " ");
-        // }
-
-        // System.out.println();
-
-        // try{
-        //     File f = new File("numbers.txt");
-        //     Scanner input = new Scanner(f);
-
-        //     int[] numbers = new int[100];
-        //     for (int i = 0; i < 100; i++){
-        //         numbers[i] = input.nextInt();
-        //     }
-        //     System.out.println(searchList(numbers,52));
-        //     System.out.println(binarySearch(numbers,0));
-        //     int[] reversedNumber = reverseList(numbers);
-        //     for (int i = 0; i < reversedNumber.length; i++){
-        //         System.out.print(reversedNumber[i] + " ");
-        //     }
-        // }
-        // catch(IOException e){
-        //     System.out.println("file not found");
-        // }
-
         FileOperator countriesFile = new FileOperator("countries.txt");
         FileOperator incomeFile = new FileOperator("incomes.txt");
         FileOperator internetpercentFile = new FileOperator("internetpercent.txt");
