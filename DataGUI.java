@@ -20,18 +20,19 @@ public class DataGUI extends JFrame {
 
     public DataGUI() {
         setTitle("Internet Data Analyzer");
-        setSize(500, 400);
+        setSize(600, 600);
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         inputField = new JTextField(20);
+        resultsArea = new JTextArea(10,20);
+
         JButton findCountryByInternetButton = new JButton("Find Country by Internet Usage");
         JButton findCountryByIncomeButton = new JButton("Find Country by Income Level");
         JButton findCountryByPopulationButton = new JButton("Find Country by Population Size");
         JButton findCountryByUnemploymentButton = new JButton("Find Country by Unemployment");
         JButton getMinInternetButton = new JButton("Get Country with lowest Internet Usage");
         
-        resultsArea = new JTextArea(10, 40);
         resultsArea.setEditable(false);
 
         add(inputField);
