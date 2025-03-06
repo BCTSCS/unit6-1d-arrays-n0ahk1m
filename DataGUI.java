@@ -5,6 +5,7 @@ import javax.swing.*;
 public class DataGUI extends JFrame {
     private JTextField inputField;
     private JTextArea resultsArea;
+    private Internet internet;
 
     private FileOperator countriesFile = new FileOperator("countries.txt");
     private FileOperator incomeFile = new FileOperator("incomes.txt");
@@ -19,6 +20,7 @@ public class DataGUI extends JFrame {
     private double[] unemployment = unemploymentFile.toDoubleArray(215);
 
     public DataGUI() {
+        internet = new Internet();
         setTitle("Internet Data Analyzer");
         setSize(600, 600);
         setLayout(new FlowLayout());
