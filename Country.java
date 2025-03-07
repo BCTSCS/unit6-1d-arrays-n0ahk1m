@@ -12,4 +12,44 @@ public class Country {
         this.population = population;
         this.unemployment = unemployment;
     }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public String getIncome(){
+        return this.income;
+    }
+
+    public double getInternetPercent(){
+        return this.internetPercent;
+    }
+
+    public int getPopulation(){
+        return this.population;
+    }
+
+    public double getUnemployment(){
+        return this.unemployment;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public void setIncome(String income){
+        this.income = income;
+    }
+
+    public void setInternetPercent(double internetPercent){
+        this.internetPercent = internetPercent;
+    }
+
+    public void setPopulation(int population){
+        this.population = population;
+    }
+
+    public void setUnemployment(double unemployment){
+        this.unemployment = unemployment;
+    }
 }

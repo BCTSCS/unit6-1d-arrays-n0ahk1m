@@ -1,26 +1,20 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
 public class DataGUI extends JFrame {
     private JTextField inputField;
     private JTextArea resultsArea;
-    private Internet internet;
-
-    private FileOperator countriesFile = new FileOperator("countries.txt");
-    private FileOperator incomeFile = new FileOperator("incomes.txt");
-    private FileOperator internetpercentFile = new FileOperator("internetpercent.txt");
-    private FileOperator populationsFile = new FileOperator("populations.txt");
-    private FileOperator unemploymentFile = new FileOperator("unemployment.txt");
-    
-    private String[] countries = countriesFile.toStringArray(215);
-    private String[] incomes = incomeFile.toStringArray(215);
-    private double[] internetPercents = internetpercentFile.toDoubleArray(215);
-    private int[] populations = populationsFile.toIntArray(215);
-    private double[] unemployment = unemploymentFile.toDoubleArray(215);
+    private Internet internet = new Internet();
+    public static int counter = 0;
 
     public DataGUI() {
-        internet = new Internet();
+
         setTitle("Internet Data Analyzer");
         setSize(600, 600);
         setLayout(new FlowLayout());
@@ -29,11 +23,15 @@ public class DataGUI extends JFrame {
         inputField = new JTextField(20);
         resultsArea = new JTextArea(10,20);
 
-        JButton findCountryByInternetButton = new JButton("Find Country by Internet Usage");
-        JButton findCountryByIncomeButton = new JButton("Find Country by Income Level");
-        JButton findCountryByPopulationButton = new JButton("Find Country by Population Size");
-        JButton findCountryByUnemploymentButton = new JButton("Find Country by Unemployment");
-        JButton getMinInternetButton = new JButton("Get Country with lowest Internet Usage");
+        JButton findCountryByInternetButton = new JButton("Find Countries by Internet Usage");
+        JButton findCountryByIncomeButton = new JButton("Find Countries by Income Level");
+        JButton findCountryByPopulationButton = new JButton("Find Countries by Population Size");
+        JButton findCountryByUnemploymentButton = new JButton("Find Countries by Unemployment Level");
+        JButton getLowestCountriesButton = new JButton("Get Countries with the Least Population");
+        JButton getLowUsageCountriesButton = new JButton("Get Countries with the Lowest Internet Usage");
+        JButton getPercentofIncomeButton = new JButton("Get Statistical Percentage of Each Income Level");
+        JButton saveScreenButton = new JButton("Save Screen");
+
         
         resultsArea.setEditable(false);
 
@@ -42,53 +40,128 @@ public class DataGUI extends JFrame {
         add(findCountryByIncomeButton);
         add(findCountryByPopulationButton);
         add(findCountryByUnemploymentButton);
-        add(getMinInternetButton);
+        add(getLowestCountriesButton);
+        add(getLowUsageCountriesButton);
+        add(getPercentofIncomeButton);
+        add(saveScreenButton);
         add(new JScrollPane(resultsArea));
 
         findCountryByInternetButton.addActionListener(e -> findByInternet());
         findCountryByIncomeButton.addActionListener(e -> findByIncome());
         findCountryByPopulationButton.addActionListener(e -> findByPopulation());
         findCountryByUnemploymentButton.addActionListener(e -> findByUnemployment());
-        getMinInternetButton.addActionListener(e -> getMinInternet());
+        getLowestCountriesButton.addActionListener(e -> getLowestCountries());
+        getLowUsageCountriesButton.addActionListener(e -> getLowUsageCountries());
+        getPercentofIncomeButton.addActionListener(e -> getPercentofIncome());
+        saveScreenButton.addActionListener(e -> saveScreen());
     }
 
     private void findByInternet(){
+        resultsArea.setText("");
         String input = inputField.getText();
-        double value = Double.parseDouble(input);
+        double targetInternet = Double.parseDouble(input);
 
-        String country = DataAnalyzer.findCountryByInternetUsage(value, internetPercents, countries);
-        resultsArea.setText("Country by Specified Usage of " + inputField.getText() + ":" + "\n" + country);
+        ArrayList<String> targetCountries = internet.findCountryByInternetUsage(targetInternet);
+
+        resultsArea.append("Countries with an Internet Usage of " + input + ":" + "\n" + "----------------------" + "\n");
+        for (String country : targetCountries){
+            resultsArea.append(country + "\n");
+        }
     }
 
     private void findByIncome(){
-        String input = inputField.getText();
+        resultsArea.setText("");
+        String targetIncome = inputField.getText();
 
-        String country = DataAnalyzer.findCountryByIncomeLevel(input, incomes, countries);
-        resultsArea.setText("Country by Specified Income Level of " + inputField.getText() + ":" + "\n" + country);
+        ArrayList<String> targetCountries = internet.findCountryByIncomeLevel(targetIncome);
+
+        resultsArea.append("Countries that are " + targetIncome + ":" + "\n" + "----------------------" + "\n");
+        for (String country : targetCountries){
+            resultsArea.append(country + "\n");
+        }
     }
 
     private void findByPopulation(){
+        resultsArea.setText("");
         String input = inputField.getText();
-        int value = Integer.parseInt(input);
+        int targetPopulation = Integer.parseInt(input);
 
-        String country = DataAnalyzer.findCountryByPopulation(value, populations, countries);
-        resultsArea.setText("Country by Specified Population of " + inputField.getText() + ":" + "\n" + country);
+        ArrayList<String> targetCountries = internet.findCountryByPopulation(targetPopulation);
+
+        resultsArea.append("Countries that have a population of " + targetPopulation + ":" + "\n" + "----------------------" + "\n");
+        for (String country : targetCountries){
+            resultsArea.append(country + "\n");
+        }
     }
 
     private void findByUnemployment(){
+        resultsArea.setText("");
         String input = inputField.getText();
-        double value = Double.parseDouble(input);
+        double targetUnemployment = Double.parseDouble(input);
 
-        String country = DataAnalyzer.findCountryByUnemployment(value, unemployment, countries);
-        resultsArea.setText("Country by Specified Unemployment of " + inputField.getText() + ":" + "\n" + country);
+        ArrayList<String> targetCountries = internet.findCountryByUnemployment(targetUnemployment);
+
+        resultsArea.append("Countries that have an unemployment level of " + targetUnemployment + ":" + "\n" + "----------------------" + "\n");
+        for (String country : targetCountries){
+            resultsArea.append(country + "\n");
+        }
+    }
+    
+    private void getLowestCountries(){
+        resultsArea.setText("");
+
+        ArrayList<String> targetCountries = internet.getLeastPopulatedCountries();
+
+        resultsArea.append("Countries with the lowest population: " + "\n" + "----------------------" + "\n");
+        for (String country : targetCountries){
+            resultsArea.append(country + "\n");
+        }
     }
 
-    private void getMinInternet(){
-        String country = DataAnalyzer.getMinInternetCountry(countries, internetPercents);
-        resultsArea.setText("Country with lowest internet usage:" + "\n" + country);
+    private void getLowUsageCountries(){
+        resultsArea.setText("");
+
+        ArrayList<String> targetCountries = internet.getLowUsageCountries();
+
+        resultsArea.append("Countries with the lowest internet usage: " + "\n" + "----------------------" + "\n");
+        for (String country : targetCountries){
+            resultsArea.append(country + "\n");
+        }
     }
 
-    public static void main(String[] args) {
+    private void getPercentofIncome(){
+        resultsArea.setText("");
+
+        ArrayList<Double> incomePercents = internet.getPercentofIncomes();
+
+        resultsArea.append("Low Income: " + incomePercents.get(0) + "\n");
+        resultsArea.append("Lower Middle Income: " + incomePercents.get(1) + "\n");
+        resultsArea.append("Upper Middle Income: " + incomePercents.get(2) + "\n");
+        resultsArea.append("High Income: " + incomePercents.get(3) + "\n");
+    }
+
+    public void saveScreen(){
+        counter++;
+        try {
+            int w = resultsArea.getWidth();
+            int h = resultsArea.getHeight();
+            int type =BufferedImage.TYPE_INT_ARGB;
+            BufferedImage sshot = new BufferedImage(w,h,type);
+
+            Graphics2D g2d = sshot.createGraphics();
+            resultsArea.paint(g2d);
+
+            File out = new File("Search "+ counter + ".png");
+            ImageIO.write(sshot,"png",out);
+            g2d.dispose();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public static void main(String[] args) throws IOException {
         SwingUtilities.invokeLater(() -> new DataGUI().setVisible(true));
     }
 }

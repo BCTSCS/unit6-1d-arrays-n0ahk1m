@@ -5,46 +5,6 @@
 
 public class DataAnalyzer{
 
-    public static String findCountryByInternetUsage(double internet, double[] internetList, String[] countryList){
-        for (int i = 0; i < internetList.length; i++){
-            if (internet == internetList[i]){
-                return countryList[i];
-            }
-        }
-
-        return "None";
-    }
-
-    public static String findCountryByIncomeLevel(String incomeLevel, String[] incomeList, String[] countryList){
-        for (int i = 0; i < incomeList.length; i++){
-            if (incomeLevel.equals(incomeList[i])){
-                return countryList[i];
-            }
-        }
-
-        return "None";
-    }
-
-    public static String findCountryByPopulation(int populationLevel, int[] populationList, String[] countryList){
-        for (int i = 0; i < populationList.length; i++){
-            if (populationLevel == populationList[i]){
-                return countryList[i];
-            }
-        }
-
-        return "None";
-    }
-
-    public static String findCountryByUnemployment(double unemploymentLevel, double[] unemploymentList, String[] countryList){
-        for (int i = 0; i < unemploymentList.length; i++){
-            if (unemploymentLevel == unemploymentList[i]){
-                return countryList[i];
-            }
-        }
-
-        return "None";
-    }
-
     public static String getMinInternetCountry(String[] countries, double[] internetPercents){
         String country = countries[0];
         double minInternet = internetPercents[0];
