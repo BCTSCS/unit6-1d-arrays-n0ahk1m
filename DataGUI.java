@@ -54,6 +54,7 @@ public class DataGUI extends JFrame {
         getLowUsageCountriesButton.addActionListener(e -> getLowUsageCountries());
         getPercentofIncomeButton.addActionListener(e -> getPercentofIncome());
         saveScreenButton.addActionListener(e -> saveScreen());
+
     }
 
     private void findByInternet(){
@@ -165,4 +166,3 @@ public class DataGUI extends JFrame {
         SwingUtilities.invokeLater(() -> new DataGUI().setVisible(true));
     }
 }
-    

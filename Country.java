@@ -1,3 +1,5 @@
+
+
 public class Country {
     private String name;
     private String income; 
@@ -51,5 +53,9 @@ public class Country {
 
     public void setUnemployment(double unemployment){
         this.unemployment = unemployment;
+    }
+
+    public String toString(){
+        return (this.name + " is a " + this.income + " country with a population of " + this.population + ", an internet usage rate of " + this.internetPercent + ", and an unemployment rate of " + this.unemployment);
     }
 }
