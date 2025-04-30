@@ -1,18 +1,37 @@
+package com.bcts.data;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+@Document(collection="countries")
 public class Country {
+    @Id
+    private String id;
+    
     private String name;
     private String income; 
     private double internetPercent;
     private int population;
     private double unemployment;
 
+    public Country(){
+
+    }
+    
     public Country(String name, String income, double internetPercent, int population, double unemployment){
         this.name = name;
         this.income = income; 
         this.internetPercent = internetPercent;
         this.population = population;
         this.unemployment = unemployment;
+    }
+
+    public String getId(){
+        return id;
+    }
+
+    public void setId(String id){
+        this.id = id;
     }
 
     public String getName(){
@@ -55,6 +74,7 @@ public class Country {
         this.unemployment = unemployment;
     }
 
+    @Override
     public String toString(){
         return (this.name + " is a " + this.income + " country with a population of " + this.population + ", an internet usage rate of " + this.internetPercent + ", and an unemployment rate of " + this.unemployment);
     }
